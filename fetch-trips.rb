@@ -8,6 +8,8 @@ def save_bookmarks(mech, email, password)
   end
 end
 
+
+
 # def save_bookmarks(mech, email, password)
 #   mech.get('http://www.tripadvisor.com/') do |login_page|
 #     home_page = login_page.form_with(:action => '/login?return_url=%2Fla') do |form|
