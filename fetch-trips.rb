@@ -2,6 +2,38 @@
 require 'rubygems'
 require 'mechanize'
 
+def save_bookmarks(mech, email, password)
+  mech.get('http://www.tripadvisor.com/') do |login_page|
+    puts login_page.parser.xpath('/html').to_s
+  end
+end
+
+# def save_bookmarks(mech, email, password)
+#   mech.get('http://www.tripadvisor.com/') do |login_page|
+#     home_page = login_page.form_with(:action => '/login?return_url=%2Fla') do |form|
+#       form.email = email
+#       form.password = password
+#     end.click_button
+#     about_page = home_page.link_with(:text => 'About Me').click
+#     print 'scraping... '
+#     bookmarks_page = about_page.link_with(:text => 'Bookmarks').click
+#     page_num = 0
+#     print "writing page #{page_num}\n"
+#     write_bookmarks(bookmarks_page, page_num)
+#     loop do
+#       break if not bookmarks_page.link_with(:text => 'Next')
+#       print 'scraping... '
+#       bookmarks_page = bookmarks_page.link_with(:text => 'Next').click
+#       page_num += 1
+#       print "writing page #{page_num}\n"
+#       write_bookmarks(bookmarks_page, page_num)
+#       print 'sleeping... '
+#       sleep(15)
+#     end
+#   end
+#   puts 'Done'
+# end
+
 def mech()
   Mechanize.new do |agent|
       agent.user_agent_alias = 'Mac Safari'
@@ -26,7 +58,8 @@ def read_email_password()
   return email.chomp!, password.chomp!
 end
 
-read_email_password()
+email, password = read_email_password()
+save_bookmarks(mech(), email, password)
 
 # End of script
 
