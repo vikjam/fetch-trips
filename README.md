@@ -1,4 +1,4 @@
 fetch-trips
 ===========
 
-Download bookmarked attractions from TripAdvisor.
+Download bookmarked attractions from TripAdvisor. 
