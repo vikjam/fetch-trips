@@ -3,14 +3,24 @@ require 'rubygems'
 require 'mechanize'
 
 def save_bookmarks(mech, email, password)
-  mech.get('http://www.tripadvisor.com/MemberSignIn') do |login_page|
-    home_page = login_page.form_with(:action => '/MemberSignIn') do |form|
-    	form.email    = email
-    	form.password = password
-    end.click_button
-    puts home_page.parser.xpath('/html').to_s
-  end
+	login_page       = mech.get('http://www.tripadvisor.com/MemberSignIn')
+	login_form       = login_page.form_with(:action => '/MemberSignIn')
+	login_form.email = email
+	login_form.pass  = password
+	home_page        = mech.submit(login_form)
+	saves_page 		 = mech.click(page.link_with(:text => /Saved Trips/))
 end
+
+# def save_bookmarks(mech, email, password)
+#   mech.get('http://www.tripadvisor.com/MemberSignIn') do |login_page|
+#     home_page = login_page.form_with(:action => '/MemberSignIn') do |form|
+#     	form.email    = email
+#     	form.pass = password
+#     	form.submit
+#     end
+#     puts home_page.parser.xpath('/html').to_s
+#   end
+# end
 
 
 
